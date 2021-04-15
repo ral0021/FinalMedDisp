@@ -23,7 +23,7 @@ import Edit_machine_information from './components/Edit_machine_information'
 import Error from './components/Error';
 import Navigation from './components/Navigation';
 import Username from './components/Username'
-
+import Edit_email_information from './components/Edit_email_information'
 
 
 

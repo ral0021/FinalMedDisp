@@ -24,7 +24,7 @@ const Edit_email_information = () => {
         console.log("info:", user["cognito:username"]);
     }
 
-    async function fetchCaregiverPatientMatcher() {
+    async function fetchUsernameEmailMatcher() {
         const apiData = await API.graphql({ query: listUsernameEmailMatchers });
         setPatientEmail(apiData.data.listUsernameEmailMatchers.patientEmail);
     }
@@ -70,7 +70,7 @@ const Edit_email_information = () => {
                 </div>
                 <div class="row justify-content-center my-2">
                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-6">
-                                <input id="login-username" type="text" class="form-control custom-input" placeholder="Enter Your Email" required onChange={e => setFormData({ ...formData, 'patientEmail': e.target.value })} value={formData.patientEmail} /> />
+                                <input id="login-username" type="text" class="form-control custom-input" placeholder="Enter Your Email" required onChange={e => setFormData({ ...formData, 'patientEmail': e.target.value })} value={formData.patientEmail} />
                             </div>
                 </div>
 
