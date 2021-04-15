@@ -44,13 +44,13 @@ const Edit_caregiver_information = () => {
        <div>
        		<meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
-    
+
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet"/>
     <title>Edit User Information</title>
- 
+
     <div id="menu-banner" class="row text-center py-3">
         <div class="col">
             <p class="display-5" id="login-title">
@@ -60,10 +60,10 @@ const Edit_caregiver_information = () => {
             </p>
         </div>
     </div>
-    
+
     <div class="container-fluid text-center mt-5">
         <div class="container-fluid text-center mt-5">
-            
+
             <form id="login-form" class="justify-content-center">
                 <div class="row">
                     <h1 class="display-6">Edit Caregiver Information</h1>
@@ -79,7 +79,7 @@ const Edit_caregiver_information = () => {
                                 <input type="submit" class="btn btn-light form-control" onClick={createCaregiverPatientMatcher} />
                 </div>
                 </div>
-                
+
             </form>
             <div class="row justify-content-center my-2">
                 <div class="col-xl-2 col-lg-3 col-12">
@@ -100,5 +100,5 @@ const Edit_caregiver_information = () => {
     </div>
     );
 }
- 
+
 export default Edit_caregiver_information;

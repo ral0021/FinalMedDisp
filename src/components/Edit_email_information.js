@@ -101,4 +101,4 @@ const Edit_email_information = () => {
     );
 }
 
-export default Edit_caregiver_information;
+export default Edit_email_information;
