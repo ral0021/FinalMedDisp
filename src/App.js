@@ -48,7 +48,6 @@ class App extends Component {
                         <Route path="/edit_user_information" component={Edit_user_information} />
                         <Route path="/edit_time_slots" component={Edit_time_slots} />
                         <Route path="/edit_caregiver_information" component={Edit_caregiver_information} />
-                        <Route path="/edit_email_information" component={Edit_email_information} />
                         <Route path="/edit_machine_information" component={Edit_machine_information} />
                         <Route component={Error} />
                     </Switch>
@@ -113,7 +112,7 @@ export default withAuthenticator(App);
 //     <div id="menu-banner" class="row text-center py-3">
 //         <div class="col">
 //             <p class="display-5" id="login-title">
-//                 <a href="./main_menu.html">
+//                 <a href="./main_menu.html">                    
 //                   <img id="menu-image" src="https://wchstv.com/resources/media/1f5b2909-ee90-495b-be68-68d26537cbab-large16x9_WVU.png?1518011273124"/>
 //                 </a>
 //             </p>
@@ -127,13 +126,13 @@ export default withAuthenticator(App);
 //                 <div class="card">
 //                     <div class="card-header">Today's Schedule</div>
 //                     <ul class="list-group list-group-flush">
-//                         <li id="list-item-1" class="list-group-item">
+//                         <li id="list-item-1" class="list-group-item"> 
 //                             Time 1 - 9:00 A.M.
 //                         </li>
-//                         <li id="list-item-2" class="list-group-item">
+//                         <li id="list-item-2" class="list-group-item"> 
 //                             Time 2 - 12:00 P.M.
 //                         </li>
-//                         <li id="list-item-3" class="list-group-item">
+//                         <li id="list-item-3" class="list-group-item"> 
 //                             Time 3 - 5:00 P.M.
 //                         </li>
 //                     </ul>
