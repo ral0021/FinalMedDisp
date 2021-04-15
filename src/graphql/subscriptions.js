@@ -202,3 +202,69 @@ export const onDeleteTimeSlots = /* GraphQL */ `
     }
   }
 `;
+export const onCreateTestTableZach = /* GraphQL */ `
+  subscription OnCreateTestTableZach {
+    onCreateTestTableZach {
+      id
+      patientUsername
+      caregiverUsername
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateTestTableZach = /* GraphQL */ `
+  subscription OnUpdateTestTableZach {
+    onUpdateTestTableZach {
+      id
+      patientUsername
+      caregiverUsername
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteTestTableZach = /* GraphQL */ `
+  subscription OnDeleteTestTableZach {
+    onDeleteTestTableZach {
+      id
+      patientUsername
+      caregiverUsername
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUsernameEmailMatcher = /* GraphQL */ `
+  subscription OnCreateUsernameEmailMatcher {
+    onCreateUsernameEmailMatcher {
+      id
+      patientUsername
+      patientEmail
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUsernameEmailMatcher = /* GraphQL */ `
+  subscription OnUpdateUsernameEmailMatcher {
+    onUpdateUsernameEmailMatcher {
+      id
+      patientUsername
+      patientEmail
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUsernameEmailMatcher = /* GraphQL */ `
+  subscription OnDeleteUsernameEmailMatcher {
+    onDeleteUsernameEmailMatcher {
+      id
+      patientUsername
+      patientEmail
+      createdAt
+      updatedAt
+    }
+  }
+`;
