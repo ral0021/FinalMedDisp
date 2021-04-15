@@ -51,16 +51,8 @@ type testTableZach @model {
 }
 
 
-<<<<<<< HEAD
 type usernameEmailMatcher @model {
   id : ID!
   patientUsername: String!
   patientEmail: String!
 }
-=======
-type UsernameEmailMatcher @model {
-  id : ID!
-  patientUsername: String!
-  patientEmail: String!
-}
->>>>>>> fd18025eb44652a6d8871e3e91b6abdb9e63d6c5
