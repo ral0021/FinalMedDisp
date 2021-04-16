@@ -32,7 +32,7 @@ const Consumption_history = () => {
                     <div class="card-header">Date : Time : Amount</div>
                     <ul class="list-group list-group-flush">
                         <li id="green" class="list-group-item"> 
-                            2/5/21 : 9:00 A.M. : 03
+                            2/5/21 : Zach A.M. : 03
                         </li>
                         <li id="yellow" class="list-group-item"> 
                             2/5/21 : 12:00 P.M. : 04
