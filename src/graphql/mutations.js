@@ -247,3 +247,87 @@ export const deleteTimeSlots = /* GraphQL */ `
     }
   }
 `;
+export const createTestTableZach = /* GraphQL */ `
+  mutation CreateTestTableZach(
+    $input: CreateTestTableZachInput!
+    $condition: ModeltestTableZachConditionInput
+  ) {
+    createTestTableZach(input: $input, condition: $condition) {
+      id
+      patientUsername
+      caregiverUsername
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateTestTableZach = /* GraphQL */ `
+  mutation UpdateTestTableZach(
+    $input: UpdateTestTableZachInput!
+    $condition: ModeltestTableZachConditionInput
+  ) {
+    updateTestTableZach(input: $input, condition: $condition) {
+      id
+      patientUsername
+      caregiverUsername
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteTestTableZach = /* GraphQL */ `
+  mutation DeleteTestTableZach(
+    $input: DeleteTestTableZachInput!
+    $condition: ModeltestTableZachConditionInput
+  ) {
+    deleteTestTableZach(input: $input, condition: $condition) {
+      id
+      patientUsername
+      caregiverUsername
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUsernameEmailMatcher = /* GraphQL */ `
+  mutation CreateUsernameEmailMatcher(
+    $input: CreateUsernameEmailMatcherInput!
+    $condition: ModelusernameEmailMatcherConditionInput
+  ) {
+    createUsernameEmailMatcher(input: $input, condition: $condition) {
+      id
+      patientUsername
+      patientEmail
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUsernameEmailMatcher = /* GraphQL */ `
+  mutation UpdateUsernameEmailMatcher(
+    $input: UpdateUsernameEmailMatcherInput!
+    $condition: ModelusernameEmailMatcherConditionInput
+  ) {
+    updateUsernameEmailMatcher(input: $input, condition: $condition) {
+      id
+      patientUsername
+      patientEmail
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUsernameEmailMatcher = /* GraphQL */ `
+  mutation DeleteUsernameEmailMatcher(
+    $input: DeleteUsernameEmailMatcherInput!
+    $condition: ModelusernameEmailMatcherConditionInput
+  ) {
+    deleteUsernameEmailMatcher(input: $input, condition: $condition) {
+      id
+      patientUsername
+      patientEmail
+      createdAt
+      updatedAt
+    }
+  }
+`;

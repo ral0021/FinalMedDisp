@@ -42,3 +42,17 @@ type TimeSlots @model{
 	slot2: String
 	slot3: String
 }
+
+
+type testTableZach @model {
+  id: ID!
+  patientUsername: String!
+  caregiverUsername: String!
+}
+
+
+type usernameEmailMatcher @model {
+  id : ID!
+  patientUsername: String!
+  patientEmail: String!
+}

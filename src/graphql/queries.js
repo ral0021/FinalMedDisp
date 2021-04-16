@@ -174,3 +174,65 @@ export const listTimeSlotss = /* GraphQL */ `
     }
   }
 `;
+export const getTestTableZach = /* GraphQL */ `
+  query GetTestTableZach($id: ID!) {
+    getTestTableZach(id: $id) {
+      id
+      patientUsername
+      caregiverUsername
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTestTableZachs = /* GraphQL */ `
+  query ListTestTableZachs(
+    $filter: ModeltestTableZachFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTestTableZachs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        patientUsername
+        caregiverUsername
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUsernameEmailMatcher = /* GraphQL */ `
+  query GetUsernameEmailMatcher($id: ID!) {
+    getUsernameEmailMatcher(id: $id) {
+      id
+      patientUsername
+      patientEmail
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUsernameEmailMatchers = /* GraphQL */ `
+  query ListUsernameEmailMatchers(
+    $filter: ModelusernameEmailMatcherFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsernameEmailMatchers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        patientUsername
+        patientEmail
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
