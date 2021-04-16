@@ -19,8 +19,8 @@ const Current_medication = (props) => {
   console.log(new String("apple"));
 
   const searc = props.location.search; 
-const params = new URLSearchParams(searc);
-const search = params.get('search'); 
+  const params = new URLSearchParams(searc);
+  const search = params.get('search'); 
  
   
   Promise.resolve(getUser()).then(function(result){
