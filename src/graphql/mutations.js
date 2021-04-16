@@ -331,3 +331,45 @@ export const deleteUsernameEmailMatcher = /* GraphQL */ `
     }
   }
 `;
+export const createUsernameMachineMatcher = /* GraphQL */ `
+  mutation CreateUsernameMachineMatcher(
+    $input: CreateUsernameMachineMatcherInput!
+    $condition: ModelUsernameMachineMatcherConditionInput
+  ) {
+    createUsernameMachineMatcher(input: $input, condition: $condition) {
+      id
+      patientUsername
+      machineCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUsernameMachineMatcher = /* GraphQL */ `
+  mutation UpdateUsernameMachineMatcher(
+    $input: UpdateUsernameMachineMatcherInput!
+    $condition: ModelUsernameMachineMatcherConditionInput
+  ) {
+    updateUsernameMachineMatcher(input: $input, condition: $condition) {
+      id
+      patientUsername
+      machineCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUsernameMachineMatcher = /* GraphQL */ `
+  mutation DeleteUsernameMachineMatcher(
+    $input: DeleteUsernameMachineMatcherInput!
+    $condition: ModelUsernameMachineMatcherConditionInput
+  ) {
+    deleteUsernameMachineMatcher(input: $input, condition: $condition) {
+      id
+      patientUsername
+      machineCode
+      createdAt
+      updatedAt
+    }
+  }
+`;

@@ -56,3 +56,9 @@ type usernameEmailMatcher @model {
   patientUsername: String!
   patientEmail: String!
 }
+
+type UsernameMachineMatcher @model {
+  id : ID!
+  patientUsername: String!
+  machineCode: String!
+}

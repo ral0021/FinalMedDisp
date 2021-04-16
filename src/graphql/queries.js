@@ -236,3 +236,36 @@ export const listUsernameEmailMatchers = /* GraphQL */ `
     }
   }
 `;
+export const getUsernameMachineMatcher = /* GraphQL */ `
+  query GetUsernameMachineMatcher($id: ID!) {
+    getUsernameMachineMatcher(id: $id) {
+      id
+      patientUsername
+      machineCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUsernameMachineMatchers = /* GraphQL */ `
+  query ListUsernameMachineMatchers(
+    $filter: ModelUsernameMachineMatcherFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsernameMachineMatchers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        patientUsername
+        machineCode
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

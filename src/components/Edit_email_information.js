@@ -29,8 +29,8 @@ const Edit_email_information = () => {
         setPatientEmail(apiData.data.listUsernameEmailMatchers.patientEmail);
     }
 
-    async function createCaregiverPatientMatcher() {
-        if (!formData.caregiverUsername) return;
+    async function createUsernameEmailMatcher() {
+        if (!formData.patientEmail) return;
         getUser()
         formData.patientUsername = (await Auth.currentSession()).getIdToken().payload["cognito:username"];
         await API.graphql({ query: createUsernameEmailMatcherMutation, variables: { input: formData }});

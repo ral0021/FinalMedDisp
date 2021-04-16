@@ -268,3 +268,36 @@ export const onDeleteUsernameEmailMatcher = /* GraphQL */ `
     }
   }
 `;
+export const onCreateUsernameMachineMatcher = /* GraphQL */ `
+  subscription OnCreateUsernameMachineMatcher {
+    onCreateUsernameMachineMatcher {
+      id
+      patientUsername
+      machineCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUsernameMachineMatcher = /* GraphQL */ `
+  subscription OnUpdateUsernameMachineMatcher {
+    onUpdateUsernameMachineMatcher {
+      id
+      patientUsername
+      machineCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUsernameMachineMatcher = /* GraphQL */ `
+  subscription OnDeleteUsernameMachineMatcher {
+    onDeleteUsernameMachineMatcher {
+      id
+      patientUsername
+      machineCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
