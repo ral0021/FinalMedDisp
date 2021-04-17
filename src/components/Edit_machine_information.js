@@ -51,7 +51,7 @@ const Edit_machine_information = () => {
     for (UsernameMachineMatcher in UsernameMachineMatchers){
         var tempUsernameMachineMatcher = UsernameMachineMatchers.[UsernameMachineMatcher];
         console.log("loop: ", tempUsernameMachineMatcher);
-        if(re.localeCompare(new String(tempUsernameMachineMatcher.userid))==0){
+        if(re.localeCompare(new String(tempUsernameMachineMatcher.patientUsername))==0){
             console.log("if: ", tempUsernameMachineMatcher);
             deleteUsernameMachineMatcher(tempUsernameMachineMatcher);
         }
