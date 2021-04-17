@@ -38,6 +38,7 @@ const Edit_time_slots = () => {
     if (!formData.slot1 || !formData.slot2 || !formData.slot3) return;
     getUser()
     formData.userid = (await Auth.currentSession()).getIdToken().payload["cognito:username"];
+    console.log("re: ", re);
     var timeSlots;
     console.log("timeSlotss: ", typeof timeSlotss);
     for (timeSlots in timeSlotss){

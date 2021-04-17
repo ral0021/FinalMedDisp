@@ -1,15 +1,21 @@
 import { createUsernameEmailMatcher as createUsernameEmailMatcherMutation } from '../graphql/mutations';
+import { deleteUsernameEmailMatcher as deleteUsernameEmailMatcherMutation } from '../graphql/mutations';
 import { createUsernameEmailMatcher } from '../graphql/mutations';
 
 import React, { useState, useEffect } from 'react';
 import { API, Auth } from 'aws-amplify';
 import { listUsernameEmailMatchers } from '../graphql/queries';
+import { If } from 'react-control-flow-components';
 
 
 
 const initialFormState = { patientUsername: '',  patientEmail: '' }
-
+var re;
 const Edit_email_information = () => {
+
+      Promise.resolve(getUser()).then(function(result){
+                        re= new String(result);
+                    });
 
     const [patientEmail, setPatientEmail] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
@@ -21,23 +27,44 @@ const Edit_email_information = () => {
         // await (await Auth.currentCredentials()).getPromise();
         //  const user = await Auth.currentUserInfo();
         const user = (await Auth.currentSession()).getIdToken().payload;
-        console.log("info:", user["cognito:username"]);
+        return user["cognito:username"];
     }
 
     async function fetchUsernameEmailMatcher() {
         const apiData = await API.graphql({ query: listUsernameEmailMatchers });
-        setPatientEmail(apiData.data.listUsernameEmailMatchers.patientEmail);
+        console.log(apiData.data.listUsernameEmailMatchers.items);
+        setPatientEmail(apiData.data.listUsernameEmailMatchers.items);
     }
 
     async function createUsernameEmailMatcher() {
+        console.log("test1");
         if (!formData.patientEmail) return;
+        console.log("test2");
+        console.log("re: ", re);
+
         getUser()
         formData.patientUsername = (await Auth.currentSession()).getIdToken().payload["cognito:username"];
+        console.log("test3");
+        var Email;
+        for (Email in patientEmail){
+            var tempEmail = patientEmail.[Email];
+            console.log("loop: ", tempEmail);
+            if(re.localeCompare(new String(tempEmail.patientUsername))==0){
+                console.log("if: ", tempEmail);
+                deleteUsernameEmailMatcher(tempEmail);
+            }
+        }
+
         await API.graphql({ query: createUsernameEmailMatcherMutation, variables: { input: formData }});
         setPatientEmail([...patientEmail, formData]);
         setFormData(initialFormState);
     }
 
+    async function deleteUsernameEmailMatcher({ id }) {
+        const newEmailArray = patientEmail.filter(note => note.id !== id);
+        setPatientEmail(newEmailArray);
+        await API.graphql({ query: deleteUsernameEmailMatcherMutation, variables: { input: { id } }});
+    }
 
 
     return (
@@ -63,11 +90,37 @@ const Edit_email_information = () => {
 
     <div class="container-fluid text-center mt-5">
         <div class="container-fluid text-center mt-5">
-
-            <form id="login-form" class="justify-content-center">
-                <div class="row">
+        <div class="row">
                     <h1 class="display-6">Edit Email Connection for Notifications</h1>
                 </div>
+            <table class="table table-striped table-bordered table-hover table-responsive">
+              <thead class="table-head">
+                <tr>
+                  
+                  <th>Current Email</th>
+                </tr>
+              </thead>
+              <tbody class="">
+
+                {patientEmail.map(item => (
+                    
+
+                <If test={re.localeCompare(new String(item.patientUsername))==0}>
+                <tr>
+                
+              <td>{item.patientEmail}</td>
+             
+              </tr>
+              </If>
+              
+         
+              ))}
+
+                
+              </tbody>
+            </table>
+            <form id="login-form" class="justify-content-center">
+                
                 <div class="row justify-content-center my-2">
                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-6">
                                 <input id="login-username" type="text" class="form-control custom-input" placeholder="Enter Your Email" required onChange={e => setFormData({ ...formData, 'patientEmail': e.target.value })} value={formData.patientEmail} />
