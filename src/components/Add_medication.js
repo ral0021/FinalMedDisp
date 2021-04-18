@@ -11,35 +11,38 @@ const initialFormState = { name: '', start: '', end: '', slot1: false, slot2: fa
 
 
 const Add_medication = () => {
+
+    // Declare state varables and functinos to set state variables
     const [medications, setMedications] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
 
-
+    // React Hook to allow the use of states
     useEffect(() => {
         fetchMedications();
     }, []);
 
-    async function getUser() {
-        // await (await Auth.currentCredentials()).getPromise();
-        //  const user = await Auth.currentUserInfo();
-        const user = (await Auth.currentSession()).getIdToken().payload;
-        console.log("info:", user["cognito:username"]);
-    }
-
+    // Function that sets the medicaiton state variable to the tuples in the database
     async function fetchMedications() {
         const apiData = await API.graphql({ query: listMedications });
         setMedications(apiData.data.listMedications.items);
     }
 
+    // Function to get userid
+    async function getUser() {
+        const user = (await Auth.currentSession().then(token => { return token })).getIdToken().payload;
+        return user["cognito:username"];
+    }
+
+    // Function that creates a medicaiton and sends it to the database
     async function createMedication() {
         if (!formData.name || !formData.start || !formData.end) return;
-        getUser()
         formData.userid = (await Auth.currentSession()).getIdToken().payload["cognito:username"];
         await API.graphql({ query: createMedicationMutation, variables: { input: formData } });
         setMedications([...medications, formData]);
         setFormData(initialFormState);
     }
 
+    // Function that removes a medication from the database and the current state variable
     async function deleteMedication({ id }) {
         const newMedicationsArray = medications.filter(note => note.id !== id);
         setMedications(newMedicationsArray);

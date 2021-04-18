@@ -25,8 +25,6 @@ const Edit_information = () => {
             <div class="container-fluid text-center mt-5">
                 <div class="row justify-content-center my-5 ">
                     <h1 class="display-6 mb-5">Edit Information</h1>
-                    <div class="col-md-5 col-sm-8 col-9">
-                    </div>
                 </div>
 
                 <div class="row justify-content-center pb-5">

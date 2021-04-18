@@ -9,27 +9,28 @@ const initialFormState = {};
 
 const Username = () => {
 
+  // Initialize state variables and functions to set them
   const [username, setUsername] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
 
+  // React Hook to allow use of state
   useEffect(() => {
     getUser();
   }, []);
 
+  // Function to get userid and set state variable
   async function getUser() {
    formData.name = (await Auth.currentSession()).getIdToken().payload["cognito:username"];
    setUsername([ ...username, formData ]);
   }
 
-    return(
-      <div>
+  return(
+    <div>
       {username.map(item => (
         <p>Logged in as: {item.name}</p>
-        ))}
-      </div>
-      );
-
+      ))}
+    </div>
+  );
 }
 
- 
 export default Username;

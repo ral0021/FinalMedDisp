@@ -11,41 +11,45 @@ const initialFormState = { slot1: '', slot2: '', slot3: '', userid: '' };
 var re;
 
 const Home = () => {
+
+    // Get userid
     Promise.resolve(getUser()).then(function (result) {
         re = new String(result);
     });
 
+    // Initialize state variables and functions to set them
     const [timeSlotss, setTimeSlots] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
 
-
+    // React Hook to allow the use of state
     useEffect(() => {
         fetchTimeSlots();
     }, []);
 
+    // Function to get userid
     async function getUser() {
-        // await (await Auth.currentCredentials()).getPromise();
-        //  const user = await Auth.currentUserInfo();
         const user = (await Auth.currentSession().then(token => { return token })).getIdToken().payload;
         return user["cognito:username"];
     }
 
+    // Function to retrieve TimeSlots from the database and set state variable
     async function fetchTimeSlots() {
         const apiData = await API.graphql({ query: listTimeSlotss });
         setTimeSlots(apiData.data.listTimeSlotss.items);
     }
 
+    // Function to create TimeSlot and save in database
+    // Removes other entires that belong to the current user
     async function createTimeSlots() {
         if (!formData.slot1 || !formData.slot2 || !formData.slot3) return;
-        getUser()
+        
         formData.userid = (await Auth.currentSession()).getIdToken().payload["cognito:username"];
+
+        // Loop through TimeSlots and remove any that belong to the current user
         var timeSlots;
-        console.log("timeSlotss: ", typeof timeSlotss);
         for (timeSlots in timeSlotss) {
             var tempTimeSlots = timeSlotss.[timeSlots];
-            console.log("loop: ", tempTimeSlots);
             if (re.localeCompare(new String(tempTimeSlots.userid)) == 0) {
-                console.log("if: ", tempTimeSlots);
                 deleteTimeSlots(tempTimeSlots);
             }
         }
@@ -54,6 +58,7 @@ const Home = () => {
         setFormData(initialFormState);
     }
 
+    // Function to delete TimeSlot from database and state variable
     async function deleteTimeSlots({ id }) {
         const newTimeSlotsArray = timeSlotss.filter(note => note.id !== id);
         setTimeSlots(newTimeSlotsArray);
@@ -94,25 +99,25 @@ const Home = () => {
 
                                     {timeSlotss.map(item => (
                                         <If test={re.localeCompare(new String(item.userid)) == 0}>
-                                                Time 1 - {item.slot1}
+                                            Time 1 - {item.slot1}
                                         </If>
                                     ))}
                                  </li>
                                 <li class="list-group-item">
                                     {timeSlotss.map(item => (
                                         <If test={re.localeCompare(new String(item.userid)) == 0}>
-                                                Time 2 - {item.slot2}
+                                            Time 2 - {item.slot2}
                                         </If>
                                     ))}
                                  </li>
                                 <li class="list-group-item">
                                     {timeSlotss.map(item => (
                                         <If test={re.localeCompare(new String(item.userid)) == 0}>
-                                                Time 3 - {item.slot3}
+                                            Time 3 - {item.slot3}
                                         </If>
                                     ))}
-                                    
                                  </li>
+                                 
                             </ul>
                         </div>
                     </div>
