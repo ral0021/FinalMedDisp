@@ -10,6 +10,10 @@ import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 const initialFormState = { name: '', quantity: '', refill: '' }
 var re;
 
+function compare(a, b){
+    return b.createdAt.localeCompare(a.createdAt);
+}
+
 const Verification_photos = () => {
 
     // Initialize state variables and functions to set them
@@ -40,8 +44,10 @@ const Verification_photos = () => {
             verification.image = image;
             return verification;
         }));
-        setVerifications(apiData.data.listVerifications.items);
+        setVerifications(apiData.data.listVerifications.items.sort(compare));
     }
+
+    
 
     return (
         <div>
