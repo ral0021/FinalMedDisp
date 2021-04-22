@@ -1,14 +1,21 @@
 import { createCaregiverPatientMatcher as createCaregiverPatientMatcherMutation } from '../graphql/mutations';
+import { deleteCaregiverPatientMatcher as deleteCaregiverPatientMatcherMutation } from '../graphql/mutations';
 import { createCaregiverPatientMatcher } from '../graphql/mutations';
 
 import React, { useState, useEffect } from 'react';
 import { API, Auth } from 'aws-amplify';
 import { listCaregiverPatientMatchers } from '../graphql/queries';
+import { If } from 'react-control-flow-components';
 
 
-const initialFormState = { patientUsername: '',  caregiverUsername: '' }
+const initialFormState = { patientUsername: '',  caregiverUsername: '' };
+var re;
 
 const Edit_caregiver_information = () => {
+
+    Promise.resolve(getUser()).then(function(result){
+        re= new String(result);
+    });
 
     // Initialize state variables and functions to set them
     const [caregiverUsername, setCaregiverUsername] = useState([]);
@@ -19,10 +26,16 @@ const Edit_caregiver_information = () => {
         fetchCaregiverPatientMatcher();
     }, []);
 
+    // Function to get the userid
+    async function getUser() {
+        const user = (await Auth.currentSession()).getIdToken().payload;
+        return user["cognito:username"];
+    }
+
     // Function to retrieve the CareGiverPatientMatchers from the database and update the state variable
     async function fetchCaregiverPatientMatcher() {
         const apiData = await API.graphql({ query: listCaregiverPatientMatchers });
-        setCaregiverUsername(apiData.data.listCaregiverPatientMatchers.caregiverUsername);
+        setCaregiverUsername(apiData.data.listCaregiverPatientMatchers.items);
     }
 
     // Function to create a new CaregiverPatientMatcher and add it to the database
@@ -30,9 +43,24 @@ const Edit_caregiver_information = () => {
         if (!formData.caregiverUsername) return;
         
         formData.patientUsername = (await Auth.currentSession()).getIdToken().payload["cognito:username"];
+
+        var caregiver;
+        for (caregiver in caregiverUsername){
+            var tempCaregiver = caregiverUsername.[caregiver];
+            if(re.localeCompare(new String(tempCaregiver.patientUsername))==0){
+                deleteCaregiverPatientMatcher(tempCaregiver);
+            }
+        }
+
         await API.graphql({ query: createCaregiverPatientMatcherMutation, variables: { input: formData }});
         setCaregiverUsername([...caregiverUsername, formData]);
         setFormData(initialFormState);
+    }
+
+    async function deleteCaregiverPatientMatcher({ id }) {
+        const newCaregiverArray = caregiverUsername.filter(note => note.id !== id);
+        setCaregiverUsername(newCaregiverArray);
+        await API.graphql({ query: deleteCaregiverPatientMatcherMutation, variables: { input: { id } }});
     }
 
 
@@ -63,9 +91,29 @@ const Edit_caregiver_information = () => {
                         <div class="row">
                             <h1 class="display-6">Edit Caregiver Information</h1>
                         </div>
+                        <table class="table table-striped table-bordered table-hover table-responsive">
+                            <thead class="table-head">
+                                <tr>
+                                    <th>Current Caregiver Username</th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+
+                                {caregiverUsername.map(item => (
+                            
+                                    <If test={re.localeCompare(new String(item.patientUsername))==0}>
+                                        <tr>
+                                            <td>{item.caregiverUsername}</td>
+                                        </tr>
+                                    </If>
+
+                                ))}
+
+                            </tbody>
+                        </table>
                         <div class="row justify-content-center my-2">
                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-6">
-                                <input id="login-username" type="text" class="form-control custom-input" placeholder="Caregiver Username" required onChange={e => setFormData({ ...formData, 'caregiverUsername': e.target.value })} value={formData.caregiverUsername} /> />
+                                <input id="login-username" type="text" class="form-control custom-input" placeholder="Caregiver Username" required onChange={e => setFormData({ ...formData, 'caregiverUsername': e.target.value })} value={formData.caregiverUsername} />
                             </div>
                         </div>
 
@@ -76,6 +124,12 @@ const Edit_caregiver_information = () => {
                         </div> 
                     </form>
                     <div class="row justify-content-center my-2">
+                        <div class="col-xl-2 col-lg-3 col-12">
+                            <button class="menu-button btn btn-light my-2" onClick={(e) => {
+                              e.preventDefault();
+                              window.location.href='/edit_information';
+                            }}>Back to Edit Information</button>
+                        </div>
                         <div class="col-xl-2 col-lg-3 col-12">
                             <button class="menu-button btn btn-dark my-2" onClick={(e) => {
                                 e.preventDefault();

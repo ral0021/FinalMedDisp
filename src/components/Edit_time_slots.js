@@ -146,6 +146,12 @@ const Edit_time_slots = () => {
 
                     <div class="row justify-content-center my-2">
                         <div class="col-xl-2 col-lg-3 col-12">
+                            <button class="menu-button btn btn-light my-2" onClick={(e) => {
+                              e.preventDefault();
+                              window.location.href='/edit_information';
+                            }}>Back to Edit Information</button>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-12">
                             <button class="menu-button btn btn-dark my-2" onClick={(e) => {
                               e.preventDefault();
                               window.location.href='/';
