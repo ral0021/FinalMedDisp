@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { listMedications } from '../graphql/queries';
+import { listCaregiverPatientMatchers } from '../graphql/queries';
 import { createMedication as createMedicationMutation, deleteMedication as deleteMedicationMutation } from '../graphql/mutations';
 import { Case, ForEach, If, Switch } from 'react-control-flow-components';
 
@@ -9,6 +10,7 @@ import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
 const initialFormState = { medicationName: ''}
 var re;
+var re2;
 
 const Current_medication = (props) => {
 
@@ -26,6 +28,10 @@ const Current_medication = (props) => {
     re= new String(result);
   })
 
+  Promise.resolve(getUser2()).then(function(result){
+    re2= new String(result);
+  })
+
   // React Hook to allow use of state
   useEffect(() => {
     fetchMedications();
@@ -35,6 +41,18 @@ const Current_medication = (props) => {
   async function getUser() {
     const user = (await Auth.currentSession().then(token => { return token } )).getIdToken().payload;
     return user["cognito:username"];
+  }
+
+  async function getUser2() {
+    const apiData = await API.graphql({query: listCaregiverPatientMatchers});
+    var array = apiData.data.listCaregiverPatientMatchers.items;
+    var CPM;
+    for(CPM in array){
+      var tempCPM = array[CPM];
+      if(tempCPM.caregiverUsername == re){
+        return tempCPM.patientUsername;
+      }
+    }
   }
 
   // Function to retrieve the medicatinos and set the state variable
@@ -124,7 +142,7 @@ const Current_medication = (props) => {
 
                    		{medications.map(item => (
                    			
-                      	<If test={search==null ? re == item.userid: re==item.userid && search==item.name}>
+                      	<If test={search==null ? (re == item.userid || re2 == item.userid): (re==item.userid || re2 == item.userid) && search==item.name}>
                       	<tr>
                       	
                         <td>{item.name}</td>
