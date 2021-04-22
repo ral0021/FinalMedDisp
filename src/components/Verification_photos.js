@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { listVerifications } from '../graphql/queries';
+import { listCaregiverPatientMatchers } from '../graphql/queries';
 import { Case, ForEach, If, Switch } from 'react-control-flow-components';
 
 import { API } from 'aws-amplify';
@@ -9,6 +10,7 @@ import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
 const initialFormState = { name: '', quantity: '', refill: '' }
 var re;
+var re2;
 
 function compare(a, b){
     return b.createdAt.localeCompare(a.createdAt);
@@ -24,6 +26,10 @@ const Verification_photos = () => {
         re = new String(result);
     })
 
+    Promise.resolve(getUser2()).then(function(result){
+        re2= new String(result);
+    })
+
     // React Hook to allow use of state
     useEffect(() => {
         fetchVerifications();
@@ -33,6 +39,18 @@ const Verification_photos = () => {
     async function getUser() {
         const user = (await Auth.currentSession().then(token => { return token })).getIdToken().payload;
         return user["cognito:username"];
+    }
+
+    async function getUser2() {
+        const apiData = await API.graphql({query: listCaregiverPatientMatchers});
+        var array = apiData.data.listCaregiverPatientMatchers.items;
+        var CPM;
+        for(CPM in array){
+            var tempCPM = array[CPM];
+            if(tempCPM.caregiverUsername == re){
+                return tempCPM.patientUsername;
+            }
+        }
     }
 
     // Function to get Verifications form database and set state variable
@@ -79,7 +97,7 @@ const Verification_photos = () => {
 
                         {verifications.map(item => (
 
-                            <If test={re.localeCompare(new String(item.userid)) == 0}>
+                            <If test={re == item.userid || re2 == item.userid}>
                                 <div class="row">
                                     <div class="col">
                                         {item.image && <img id="menu-image" src={item.image} />}

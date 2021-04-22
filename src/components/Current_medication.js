@@ -12,6 +12,10 @@ const initialFormState = { medicationName: ''}
 var re;
 var re2;
 
+function compare(a, b){
+    return a.name.localeCompare(b.name);
+}
+
 const Current_medication = (props) => {
 
   // Declare state varables and functinos to set state variables
@@ -58,7 +62,7 @@ const Current_medication = (props) => {
   // Function to retrieve the medicatinos and set the state variable
   async function fetchMedications() {
     const apiData = await API.graphql({ query: listMedications });
-    setMedications(apiData.data.listMedications.items);
+    setMedications(apiData.data.listMedications.items.sort(compare));
   }
 
   // Funciton to remove an entry from the database and the state variable

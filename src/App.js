@@ -41,7 +41,7 @@ class App extends Component {
                         <Route path="/pill_information" component={Pill_information} />
                         
                         <Route path="/verification_photos" component={Verification_photos} />
-                        <Route path="/dispense_schedule" component={Dispense_schedule} />
+                        
                         <Route path="/current_medication" component={Current_medication} />
                         <Route path="/add_medication" component={Add_medication} />
                         <Route path="/edit_information" component={Edit_information} />
